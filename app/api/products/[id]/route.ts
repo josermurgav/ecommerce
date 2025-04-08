@@ -1,13 +1,19 @@
 import { NextRequest } from 'next/server';
-import { products } from "@/app/product-data";
+import { ConnectToDb } from '../../db';
+//import { products } from "@/app/product-data";
+
 type Params ={
     id:string;
 }
 
 export async function GET(request: NextRequest,{params}:{params:Params})
 {
+    const { db } =await ConnectToDb();
+    //const products = await db.collection('products').find({}).toArray();
+    
+    
     const productId=params.id;
-    const product=products.find(p=>p.id===productId);
+    const product= await db.collection('products').findOne({id:productId})//products.find(p=>p.id===productId);
 
     if(!product)
     {

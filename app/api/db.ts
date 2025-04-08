@@ -1,12 +1,19 @@
 
-import { MongoClient, ServerApiVersion }  from 'mongodb';
+import { MongoClient, Db, ServerApiVersion }  from 'mongodb';
 
 
-const uri = "mongodb+srv://"+process.env.MONGODB_USER+":"+process.env.MONGODB_PASSWORD+"@cluster0.xlp7nkh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
-    export async function ConnectToDb()
-    {
 
+let cachedClient:MongoClient | null=null;
+let cachedDb:Db | null=null;
+
+export async function ConnectToDb()
+{
+    if(cachedClient && cachedDb){
+            return {client:cachedClient,db:cachedDb};
+    }
+    
+     const uri = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@cluster0.xlp7nkh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
     const client = new MongoClient(uri, {
     serverApi: {
         version: ServerApiVersion.v1,
@@ -16,14 +23,13 @@ const uri = "mongodb+srv://"+process.env.MONGODB_USER+":"+process.env.MONGODB_PA
     });
 
     
-    try {
-        
-        await client.connect();
-        
-    } finally {
-        
-        await client.close();
-    }
     
+        
+    await client.connect();
+     
+    cachedClient=client;
+    cachedDb=client.db('ecommerce-nextjs');
+    
+    return {client, db: client.db('ecommerce-nextjs')}
 
 }
