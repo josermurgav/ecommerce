@@ -13,7 +13,8 @@ export async function ConnectToDb()
             return {client:cachedClient,db:cachedDb};
     }
     
-     const uri = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@cluster0.xlp7nkh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+     //const uri = `mongodb+srv://${process.env.MONGODB_USER}:${process.env.MONGODB_PASSWORD}@cluster0.xlp7nkh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+     const uri = `mongodb+srv://josermurgav:Arechi2025$01@cluster0.xlp7nkh.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
     const client = new MongoClient(uri, {
     serverApi: {
         version: ServerApiVersion.v1,
