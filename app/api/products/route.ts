@@ -6,7 +6,7 @@ export async function GET(){
     const { db } =await ConnectToDb();
     const products = await db.collection('products').find({}).toArray();
 
-    console.log(products)
+    // console.log(products)
     
     return new Response(JSON.stringify(products),
         {
