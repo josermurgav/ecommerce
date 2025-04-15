@@ -11,7 +11,7 @@ export default function ProductsList({products,initialCartProducts}:{products:Pr
     async function addToCart(productId:string)
     {
         
-        const response =await fetch('http://localhost:3000/api/users/1/cart',
+        const response =await fetch(process.env.NEXT_PUBLIC_SITE_URL +'/api/users/1/cart',
             {
                 method: 'POST',
                 body: JSON.stringify({productId,}),
@@ -28,7 +28,7 @@ export default function ProductsList({products,initialCartProducts}:{products:Pr
     async function removeFromCart(productId:string)
     {
         
-        const response =await fetch('http://localhost:3000/api/users/1/cart',
+        const response =await fetch(process.env.NEXT_PUBLIC_SITE_URL +'/api/users/1/cart',
             {
                 method: 'DELETE',
                 body: JSON.stringify({productId,}),
@@ -71,12 +71,16 @@ export default function ProductsList({products,initialCartProducts}:{products:Pr
                     {productIsInCart(product.id)
                     ?
                     (
-                        <button onClick={(e) =>{ 
+                        <button
+                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full" 
+                            onClick={(e) =>{ 
                             e.preventDefault();
                             removeFromCart(product.id);
                             }}> Remove from Cart</button>
                     ):(
-                        <button onClick={(e) =>{ 
+                        <button
+                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full" 
+                            onClick={(e) =>{ 
                             e.preventDefault();
                             addToCart(product.id);
                             }}> Add to Cart</button>

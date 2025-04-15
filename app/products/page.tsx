@@ -1,11 +1,13 @@
 import ProductsList from "../ProductsList";
 //import {products} from "../product-data";
+
+export const dynamic ='force-dynamic';
 export default async function ProductsPage()
 {
-    const response =await fetch('http://localhost:3000/api/products');
+    const response =await fetch(process.env.NEXT_PUBLIC_SITE_URL +'/api/products');
     const products =await  response.json();
 
-    const response2 =await fetch('http://localhost:3000/api/users/1/cart');
+    const response2 =await fetch(process.env.NEXT_PUBLIC_SITE_URL +'/api/users/1/cart');
     const initialCartProducts = await response2.json();
 
     console.log("prod :" + products);
